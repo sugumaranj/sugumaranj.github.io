@@ -2,7 +2,7 @@ const siteConfig = {
     name: "Sugumaran J",
     tagline: "BCA Student | Cybersecurity | AI/ML | Data Analysis | Full-Stack Development",
     description: "Building practical systems across cybersecurity, AI, data analysis, and web development.",
-    linkedin: "https://www.linkedin.com/in/sugumaran-j",
+    linkedin: "https://www.linkedin.com/in/sugumaranj",
     github: "https://github.com/sugumaranj",
     email: "", 
     siteUrl: "https://sugumaranj.github.io"
