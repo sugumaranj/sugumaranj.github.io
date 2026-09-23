@@ -1,0 +1,100 @@
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    :root {
+        --space-24: 4rem;
+        --space-12: 2rem;
+    }
+    .hero-container, .about-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+        text-align: center;
+    }
+    .hero-actions, .social-links, .crops-to-code-visual {
+        justify-content: center;
+    }
+    .timeline::before {
+        left: 0;
+    }
+    .timeline-dot {
+        left: -5px;
+    }
+    .timeline-item {
+        padding-left: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links, .nav-actions .theme-btn {
+        display: none;
+    }
+    .hamburger-btn {
+        display: block;
+    }
+    
+    /* Mobile Menu styles */
+    .mobile-menu-overlay .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-6);
+        font-size: var(--text-xl);
+    }
+    
+    .mobile-menu-overlay .theme-btn-mobile {
+        margin-top: var(--space-8);
+    }
+
+    .connector {
+        width: 2px;
+        height: 20px;
+    }
+    .connector::after {
+        right: -4px;
+        top: auto;
+        bottom: -5px;
+        border-top: 5px solid var(--accent-primary);
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+    }
+    .crops-to-code-visual {
+        flex-direction: column;
+    }
+    .section-header-flex {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --text-4xl: 2rem;
+        --text-5xl: 2.5rem;
+    }
+    .btn {
+        width: 100%;
+    }
+    .hero-actions, .contact-actions {
+        flex-direction: column;
+    }
+    .modal-body {
+        padding: var(--space-4);
+    }
+    .certifications-grid, .projects-grid, .skills-grid {
+        grid-template-columns: 1fr;
+    }
+    .contact-card {
+        padding: var(--space-6) var(--space-4);
+    }
+}
+
+/* Profile Image Mobile Fix */
+@media (max-width: 1024px) {
+    .about-image-wrapper {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    .hero-visual {
+        margin-top: 2rem;
+    }
+}

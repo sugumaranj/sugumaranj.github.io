@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugumaran J | Portfolio</title>
+    <meta name="description" content="Portfolio of Sugumaran J - BCA Student, Cybersecurity, AI/ML, and Data Analysis Enthusiast.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/enhanced.css">
+
+    <!-- Favicon placeholder -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-family='sans-serif' fill='white'>SJ</text></svg>">
+</head>
+<body class="dark-theme">
+    
+    <div class="scroll-progress"></div>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">SJ<span>.</span></a>
+            
+            <nav class="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#education" class="nav-link">Education</a>
+                <a href="#certifications" class="nav-link">Certifications</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                <button class="hamburger-btn" aria-label="Open menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay"></div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="section hero-section">
+            <div class="hero-bg-effect"></div>
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="greeting">Hello, I'm</span>
+                        <span class="name">Sugumaran J</span>
+                    </h1>
+                    <h2 class="hero-subtitle" id="hero-tagline"></h2>
+                    <p class="hero-description" id="hero-desc"></p>
+                    <div class="hero-actions">
+                        <a href="#projects" class="btn btn-primary">View Projects</a>
+                        <a href="#contact" class="btn btn-secondary">Contact Me</a>
+                    </div>
+                    <div class="social-links" id="hero-social">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="visual-node node-center" style="overflow: hidden; padding: 0;">
+                        <img src="assets/images/profile.png" alt="Sugumaran J" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="visual-node node-orbit orbit-1">Cyber</div>
+                    <div class="visual-node node-orbit orbit-2">AI</div>
+                    <div class="visual-node node-orbit orbit-3">Data</div>
+                    <div class="visual-node node-orbit orbit-4">Code</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Highlights Strip -->
+        <section class="highlights-strip">
+            <div class="container highlights-container" id="highlights-container">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <!-- Signature: From Crops to Code -->
+        <section class="section signature-section">
+            <div class="container">
+                <h2 class="section-title">From Crops to Code</h2>
+                <div class="crops-to-code-visual">
+                    <div class="step">
+                        <span class="step-icon">🌱</span>
+                        <h4>Horticulture</h4>
+                        <p>Understanding crops & agriculture</p>
+                    </div>
+                    <div class="connector"></div>
+                    <div class="step">
+                        <span class="step-icon">💻</span>
+                        <h4>Computer Applications</h4>
+                        <p>Programming & software</p>
+                    </div>
+                    <div class="connector"></div>
+                    <div class="step">
+                        <span class="step-icon">🛡️</span>
+                        <h4>Cybersecurity</h4>
+                        <p>Secure systems</p>
+                    </div>
+                    <div class="connector"></div>
+                    <div class="step">
+                        <span class="step-icon">🧠</span>
+                        <h4>AI + Data</h4>
+                        <p>Practical intelligent systems</p>
+                    </div>
+                    <div class="connector"></div>
+                    <div class="step">
+                        <span class="step-icon">🚜</span>
+                        <h4>Agricultural AI</h4>
+                        <p>CocoaGuard AI</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-grid">
+                    <div class="about-text" id="about-content">
+                        <!-- Populated by JS -->
+                    </div>
+                    <div class="about-image-wrapper">
+                        <img src="assets/images/profile.png" alt="Sugumaran J" class="profile-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="container">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skills-grid" id="skills-container">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="projects-grid" id="projects-container">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section">
+            <div class="container">
+                <h2 class="section-title">Experience</h2>
+                <div class="timeline" id="experience-container">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section">
+            <div class="container">
+                <h2 class="section-title">Education</h2>
+                <div class="timeline" id="education-container">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications" class="section">
+            <div class="container">
+                <div class="section-header-flex">
+                    <h2 class="section-title">Certifications</h2>
+                    <div class="filters" id="cert-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="Cybersecurity">Cybersecurity</button>
+                        <button class="filter-btn" data-filter="AI">AI / ML</button>
+                        <button class="filter-btn" data-filter="Cloud">Cloud</button>
+                        <button class="filter-btn" data-filter="Development">Development</button>
+                        <button class="filter-btn" data-filter="Data">Data</button>
+                        <button class="filter-btn" data-filter="Agriculture">Agriculture</button>
+                    </div>
+                </div>
+                <div class="certifications-grid" id="certifications-container">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Recognition Section -->
+        <section id="recognition" class="section">
+            <div class="container">
+                <h2 class="section-title">Awards & Recognition</h2>
+                <div class="recognition-grid" id="awards-container">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="contact-card">
+                    <h2 class="section-title">Let's build something useful.</h2>
+                    <p>I am always open to connecting with peers, developers, cybersecurity professionals, recruiters, and mentors.</p>
+                    <div class="contact-actions" id="contact-container">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-info">
+                <h3>Sugumaran J</h3>
+                <p>BCA Student | Cybersecurity | AI/ML | Data Analysis</p>
+            </div>
+            <div class="footer-links" id="footer-social">
+                <!-- Populated by JS -->
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> Sugumaran J. All rights reserved.</p>
+                <p class="built-with">Built with HTML, CSS & JavaScript</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div class="modal-overlay" id="project-modal" aria-hidden="true" role="dialog">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-body" id="modal-body">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to top -->
+    <button id="back-to-top" class="back-to-top icon-btn" aria-label="Back to top">
+        ↑
+    </button>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/portfolio.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

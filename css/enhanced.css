@@ -1,0 +1,221 @@
+/* Enhance layout and animations to reach 10/10 */
+
+/* Global enhancements */
+:root {
+    --transition-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+body {
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.05) 0px, transparent 50%);
+    background-attachment: fixed;
+}
+
+/* Hero enhancements */
+.hero-visual {
+    perspective: 1000px;
+}
+.node-center {
+    animation: float 6s ease-in-out infinite;
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+}
+@keyframes float {
+    0% { transform: translate(-50%, -50%) translateY(0px); }
+    50% { transform: translate(-50%, -50%) translateY(-15px); box-shadow: 0 0 50px rgba(139, 92, 246, 0.6); }
+    100% { transform: translate(-50%, -50%) translateY(0px); }
+}
+
+/* About Section Enhancements */
+.about-grid {
+    background: var(--bg-card);
+    padding: var(--space-8);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+}
+
+.image-placeholder {
+    background: linear-gradient(135deg, var(--bg-surface), var(--bg-surface-hover));
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+    overflow: hidden;
+    position: relative;
+}
+.image-placeholder::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0) 100%);
+    transform: rotate(30deg);
+    animation: shine 6s infinite linear;
+}
+@keyframes shine {
+    0% { transform: translateX(-50%) rotate(30deg); }
+    100% { transform: translateX(50%) rotate(30deg); }
+}
+
+/* Project Cards Enhancements */
+.project-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-main) 100%);
+    transition: transform 0.4s var(--transition-bounce), box-shadow 0.4s ease;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+.project-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5), 0 0 15px var(--border-highlight);
+}
+.project-image-placeholder {
+    width: calc(100% + var(--space-12));
+    margin: calc(var(--space-6) * -1) calc(var(--space-6) * -1) var(--space-4);
+    height: 160px;
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-violet) 100%);
+    opacity: 0.8;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+}
+
+/* Filters */
+.filters {
+    background: var(--bg-card);
+    padding: var(--space-2);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--border-color);
+}
+.filter-btn {
+    border: none;
+}
+.filter-btn.active {
+    background-color: var(--accent-primary);
+    color: white;
+}
+
+/* Certificates / Awards Enhancements */
+.cert-card {
+    background: linear-gradient(145deg, var(--bg-surface) 0%, rgba(20, 27, 45, 0.4) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.4s var(--transition-bounce), box-shadow 0.4s ease, border-color 0.4s;
+}
+.cert-card:hover {
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    border-color: rgba(6, 182, 212, 0.5);
+}
+.cert-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--accent-cyan);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease;
+}
+.cert-card:hover::before {
+    transform: scaleY(1);
+}
+
+/* Timeline enhancements */
+.timeline-dot {
+    transition: transform 0.3s var(--transition-bounce), background-color 0.3s;
+}
+.timeline-item:hover .timeline-dot {
+    transform: scale(1.5);
+    background-color: var(--accent-cyan);
+    box-shadow: 0 0 10px var(--accent-cyan);
+}
+.timeline-content {
+    background: linear-gradient(90deg, var(--bg-surface) 0%, var(--bg-main) 100%);
+}
+
+/* Button enhancements */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 150%; height: 150%;
+    background: rgba(255,255,255,0.1);
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    transition: transform 0.5s ease-out;
+}
+.btn:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Icons */
+.github-icon svg { width: 16px; height: 16px; fill: currentColor; }
+.demo-icon svg { width: 16px; height: 16px; stroke: currentColor; fill: none; }
+/* Skills Enhancements */
+.skill-category {
+    background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(139, 92, 246, 0.5)) border-box;
+    border: 1px solid transparent;
+}
+.skill-chip {
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    transition: all 0.3s;
+}
+.skill-chip:hover {
+    background: var(--accent-primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
+}
+
+/* Light theme overrides for enhanced */
+[data-theme='light'] .project-image-placeholder {
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-cyan) 100%);
+}
+[data-theme='light'] .project-card {
+    background: linear-gradient(180deg, var(--bg-surface) 0%, #e2e8f0 100%);
+}
+[data-theme='light'] .timeline-content {
+    background: linear-gradient(90deg, var(--bg-surface) 0%, #f1f5f9 100%);
+}
+[data-theme='light'] .about-grid {
+    background: var(--bg-surface);
+}
+/* Profile Image Enhancements */
+.profile-image {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.4s var(--transition-bounce);
+    /* Forcing the border to look like a clean circle/rounded box since we rotated a circle */
+    border-radius: 50%;
+}
+.about-image-wrapper::before {
+    border-radius: 50%; /* Match the circle */
+}
+.profile-image:hover {
+    transform: scale(1.05) rotate(2deg);
+}
+/* Hero Visual Profile Adjustments */
+.node-center {
+    width: 140px;
+    height: 140px;
+}
+.node-orbit {
+    font-size: 0.8rem;
+    font-weight: 700;
+}
