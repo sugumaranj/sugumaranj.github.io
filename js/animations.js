@@ -1,5 +1,7 @@
 // animations.js
-document.addEventListener('DOMContentLoaded', () => {
+
+// Using window.addEventListener('load') ensures all DOM injection by portfolio.js is complete
+window.addEventListener('load', () => {
     // Check for reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -30,7 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
             { selector: '.projects-grid', class: 'stagger-grid' },
             { selector: '.skills-grid', class: 'stagger-grid' },
             { selector: '.certifications-grid', class: 'stagger-grid' },
-            { selector: '.crops-to-code-visual', class: 'stagger-grid' }
+            { selector: '.crops-to-code-visual', class: 'stagger-grid' },
+            { selector: '.highlights-container', class: 'stagger-grid' }
         ];
 
         animationMap.forEach(item => {
@@ -39,6 +42,43 @@ document.addEventListener('DOMContentLoaded', () => {
                 el.classList.add(item.class);
                 observer.observe(el);
             });
+        });
+
+        // Number Counting Animation
+        const counters = document.querySelectorAll('.counter');
+        const counterObserverOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        };
+
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const targetElement = entry.target;
+                    const target = +targetElement.getAttribute('data-target');
+                    const duration = 2000; // 2 seconds
+                    const increment = target / (duration / 16); // 60fps
+
+                    let current = 0;
+                    const updateCounter = () => {
+                        current += increment;
+                        if (current < target) {
+                            targetElement.innerText = Math.ceil(current);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            targetElement.innerText = target;
+                        }
+                    };
+
+                    updateCounter();
+                    observer.unobserve(targetElement);
+                }
+            });
+        }, counterObserverOptions);
+
+        counters.forEach(counter => {
+            counterObserver.observe(counter);
         });
     }
 

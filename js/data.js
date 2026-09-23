@@ -20,8 +20,7 @@ const profileData = {
     highlights: [
         { label: "Positions", value: "5" },
         { label: "Projects", value: "5" },
-        { label: "Certifications", value: "31" },
-        { label: "Skills", value: "47" }
+        { label: "Certifications", value: "31" }
     ],
     skills: [
         { category: "Programming", items: ["C", "C++", "Python", "Java", "PHP", "JavaScript"] },

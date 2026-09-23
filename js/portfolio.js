@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Populate Highlights
     const highlightsHtml = profileData.highlights.map(h => `
         <div class="highlight-item">
-            <div class="highlight-value">${h.value}</div>
+            <div class="highlight-value counter" data-target="${h.value}">0</div>
             <div class="highlight-label">${h.label}</div>
         </div>
     `).join('');
