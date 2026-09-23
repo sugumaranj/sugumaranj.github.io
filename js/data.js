@@ -3,9 +3,9 @@ const siteConfig = {
     tagline: "BCA Student | Cybersecurity | AI/ML | Data Analysis | Full-Stack Development",
     description: "Building practical systems across cybersecurity, AI, data analysis, and web development.",
     linkedin: "https://www.linkedin.com/in/sugumaran-j",
-    github: "https://github.com/sugumaranj6724",
+    github: "https://github.com/sugumaranj",
     email: "", 
-    siteUrl: "https://sugumaranj6724.github.io/portfolio"
+    siteUrl: "https://sugumaranj.github.io"
 };
 
 const profileData = {
