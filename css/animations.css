@@ -1,22 +1,72 @@
-/* Animations */
-@media (prefers-reduced-motion: no-preference) {
-    .fade-in {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-    
-    .fade-in.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    .stagger-1 { transition-delay: 0.1s; }
-    .stagger-2 { transition-delay: 0.2s; }
-    .stagger-3 { transition-delay: 0.3s; }
-    .stagger-4 { transition-delay: 0.4s; }
+/* Enhanced Scroll Animations System */
+:root {
+    --easing-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --easing-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+    --anim-duration: 0.8s;
+}
 
-    /* Orbit Animation */
+@media (prefers-reduced-motion: no-preference) {
+    /* Base setup for animated elements */
+    .reveal-up, .reveal-left, .reveal-right, .reveal-scale {
+        opacity: 0;
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        transition: opacity var(--anim-duration) var(--easing-smooth), 
+                    transform var(--anim-duration) var(--easing-smooth);
+    }
+    
+    /* Reveal types */
+    .reveal-up {
+        transform: translate3d(0, 40px, 0);
+    }
+    .reveal-left {
+        transform: translate3d(-50px, 0, 0);
+    }
+    .reveal-right {
+        transform: translate3d(50px, 0, 0);
+    }
+    .reveal-scale {
+        transform: scale(0.9) translate3d(0, 20px, 0);
+    }
+
+    /* Active state when in viewport */
+    .reveal-up.is-visible, 
+    .reveal-left.is-visible, 
+    .reveal-right.is-visible, 
+    .reveal-scale.is-visible {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    
+    /* Stagger helpers for children (e.g. grids) */
+    .stagger-grid > * {
+        opacity: 0;
+        transform: translate3d(0, 30px, 0);
+        transition: opacity var(--anim-duration) var(--easing-smooth), 
+                    transform var(--anim-duration) var(--easing-smooth);
+        will-change: transform, opacity;
+    }
+    .stagger-grid.is-visible > * {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+    
+    /* Apply dynamic transition delays up to 20 items for seamless grid drops */
+    .stagger-grid.is-visible > *:nth-child(1) { transition-delay: 0.05s; }
+    .stagger-grid.is-visible > *:nth-child(2) { transition-delay: 0.10s; }
+    .stagger-grid.is-visible > *:nth-child(3) { transition-delay: 0.15s; }
+    .stagger-grid.is-visible > *:nth-child(4) { transition-delay: 0.20s; }
+    .stagger-grid.is-visible > *:nth-child(5) { transition-delay: 0.25s; }
+    .stagger-grid.is-visible > *:nth-child(6) { transition-delay: 0.30s; }
+    .stagger-grid.is-visible > *:nth-child(7) { transition-delay: 0.35s; }
+    .stagger-grid.is-visible > *:nth-child(8) { transition-delay: 0.40s; }
+    .stagger-grid.is-visible > *:nth-child(9) { transition-delay: 0.45s; }
+    .stagger-grid.is-visible > *:nth-child(10) { transition-delay: 0.50s; }
+    .stagger-grid.is-visible > *:nth-child(11) { transition-delay: 0.55s; }
+    .stagger-grid.is-visible > *:nth-child(12) { transition-delay: 0.60s; }
+    .stagger-grid.is-visible > *:nth-child(n+13) { transition-delay: 0.65s; }
+
+    /* Orbit Animation (Preserved) */
     @keyframes orbit {
         from { transform: rotate(0deg) translateX(100px) rotate(0deg); }
         to { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
@@ -29,10 +79,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .fade-in {
-        opacity: 1;
-        transform: none;
-        transition: none;
+    .reveal-up, .reveal-left, .reveal-right, .reveal-scale, .stagger-grid > * {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
     }
     .node-orbit {
         animation: none;

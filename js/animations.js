@@ -8,29 +8,37 @@ document.addEventListener('DOMContentLoaded', () => {
         const observerOptions = {
             root: null,
             rootMargin: '0px',
-            threshold: 0.1
+            threshold: 0.15 // Slightly higher threshold so items reveal confidently
         };
 
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    entry.target.classList.add('is-visible');
                     observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
-        // Apply fade-in classes
-        const animateElements = document.querySelectorAll('.section-title, .about-text, .about-image-wrapper, .skill-category, .project-card, .timeline-item, .cert-card, .step');
-        
-        animateElements.forEach((el, index) => {
-            el.classList.add('fade-in');
-            // Add slight stagger to grids
-            if(el.classList.contains('project-card') || el.classList.contains('skill-category') || el.classList.contains('cert-card')) {
-                const staggerIndex = (index % 4) + 1;
-                el.classList.add(`stagger-${staggerIndex}`);
-            }
-            observer.observe(el);
+        // Map elements to their desired reveal animations
+        const animationMap = [
+            { selector: '.section-title', class: 'reveal-up' },
+            { selector: '.about-text', class: 'reveal-left' },
+            { selector: '.about-image-wrapper', class: 'reveal-right' },
+            { selector: '.timeline-item', class: 'reveal-up' },
+            // For grids, we animate the parent and the children stagger in
+            { selector: '.projects-grid', class: 'stagger-grid' },
+            { selector: '.skills-grid', class: 'stagger-grid' },
+            { selector: '.certifications-grid', class: 'stagger-grid' },
+            { selector: '.crops-to-code-visual', class: 'stagger-grid' }
+        ];
+
+        animationMap.forEach(item => {
+            const elements = document.querySelectorAll(item.selector);
+            elements.forEach(el => {
+                el.classList.add(item.class);
+                observer.observe(el);
+            });
         });
     }
 
@@ -42,6 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
             progressBar.style.width = scrolled + '%';
-        });
+        }, { passive: true }); // optimize scroll performance
     }
 });
