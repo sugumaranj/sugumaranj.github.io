@@ -9,7 +9,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@500;700;800;900&display=swap" rel="stylesheet">
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -40,6 +40,10 @@
             </nav>
 
             <div class="nav-actions">
+                <button id="sound-toggle" class="icon-btn cyber-sound-toggle" aria-label="Toggle audio effects" title="Audio Effects: ON">
+                    <svg class="sound-on-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+                    <svg class="sound-off-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+                </button>
                 <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">
                     <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                     <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
@@ -67,8 +71,26 @@
                     <h2 class="hero-subtitle" id="hero-tagline"></h2>
                     <p class="hero-description" id="hero-desc"></p>
                     <div class="hero-actions">
-                        <a href="#projects" class="btn btn-primary">View Projects</a>
-                        <a href="#contact" class="btn btn-secondary">Contact Me</a>
+                        <a href="#projects" class="cyber-btn hero-cyber-btn" data-sound="slide">
+                            <span class="backdrop"><span class="corner"></span></span>
+                            <kbd>P</kbd>
+                            <span>View Projects</span>
+                            <div class="glitch" aria-hidden="true">
+                                <span class="backdrop"><span class="corner"></span></span>
+                                <kbd>P</kbd>
+                                <span class="letters"><span>P</span><span>r</span><span>o</span><span>j</span><span>e</span><span>c</span><span>t</span><span>s</span></span>
+                            </div>
+                        </a>
+                        <a href="#contact" class="cyber-btn hero-cyber-btn cyber-btn-secondary" data-sound="accept">
+                            <span class="backdrop"><span class="corner"></span></span>
+                            <kbd>C</kbd>
+                            <span>Contact Me</span>
+                            <div class="glitch" aria-hidden="true">
+                                <span class="backdrop"><span class="corner"></span></span>
+                                <kbd>C</kbd>
+                                <span class="letters"><span>C</span><span>o</span><span>n</span><span>t</span><span>a</span><span>c</span><span>t</span></span>
+                            </div>
+                        </a>
                     </div>
                     <div class="social-links" id="hero-social">
                         <!-- Populated by JS -->
@@ -239,13 +261,13 @@
                 <div class="section-header-flex">
                     <h2 class="section-title">Certifications</h2>
                     <div class="filters" id="cert-filters">
-                        <button class="filter-btn active" data-filter="all">All</button>
-                        <button class="filter-btn" data-filter="Cybersecurity">Cybersecurity</button>
-                        <button class="filter-btn" data-filter="AI">AI / ML</button>
-                        <button class="filter-btn" data-filter="Cloud">Cloud</button>
-                        <button class="filter-btn" data-filter="Development">Development</button>
-                        <button class="filter-btn" data-filter="Data">Data</button>
-                        <button class="filter-btn" data-filter="Agriculture">Agriculture</button>
+                        <button class="filter-btn cyber-filter-btn active" data-filter="all" data-sound="accept"><span class="corner"></span>[ ALL ]</button>
+                        <button class="filter-btn cyber-filter-btn" data-filter="Cybersecurity" data-sound="accept"><span class="corner"></span>[ CYBERSECURITY ]</button>
+                        <button class="filter-btn cyber-filter-btn" data-filter="AI" data-sound="accept"><span class="corner"></span>[ AI / ML ]</button>
+                        <button class="filter-btn cyber-filter-btn" data-filter="Cloud" data-sound="accept"><span class="corner"></span>[ CLOUD ]</button>
+                        <button class="filter-btn cyber-filter-btn" data-filter="Development" data-sound="accept"><span class="corner"></span>[ DEV ]</button>
+                        <button class="filter-btn cyber-filter-btn" data-filter="Data" data-sound="accept"><span class="corner"></span>[ DATA ]</button>
+                        <button class="filter-btn cyber-filter-btn" data-filter="Agriculture" data-sound="accept"><span class="corner"></span>[ AGRITECH ]</button>
                     </div>
                 </div>
                 <div class="certifications-grid" id="certifications-container">
@@ -295,23 +317,41 @@
         </div>
     </footer>
 
-    <!-- Project Modal -->
-    <div class="modal-overlay" id="project-modal" aria-hidden="true" role="dialog">
-        <div class="modal-content">
-            <button class="modal-close" aria-label="Close modal">&times;</button>
-            <div class="modal-body" id="modal-body">
-                <!-- Populated by JS -->
+    <!-- Cyber Project Modal -->
+    <div class="modal-overlay cyber-modal-overlay" id="project-modal" aria-hidden="true" role="dialog">
+        <div class="cyber-modal-card" id="cyber-project-modal">
+            <section class="modal__body">
+                <div class="body__backdrop">
+                    <div class="backdrop">
+                        <div class="version">SYS.PRJ // v001.e84920</div>
+                        <div class="corner"></div>
+                    </div>
+                </div>
+                <div class="body__content">
+                    <button class="modal-close-icon-btn modal-close" aria-label="Close modal" data-sound="reject">&times;</button>
+                    <div class="modal-body" id="modal-body">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </section>
+            <div class="modal__actions" id="modal-actions">
+                <button class="cyber-btn modal-close" data-action="Cancel" data-sound="reject" aria-label="Close">
+                    <span class="backdrop"><span class="corner"></span></span>
+                    <kbd>esc</kbd>
+                    <span>Close</span>
+                </button>
             </div>
         </div>
     </div>
 
     <!-- Back to top -->
-    <button id="back-to-top" class="back-to-top icon-btn" aria-label="Back to top">
+    <button id="back-to-top" class="back-to-top icon-btn cyber-back-to-top" aria-label="Back to top" data-sound="slide">
         ↑
     </button>
 
     <!-- Scripts -->
     <script src="js/data.js"></script>
+    <script src="js/audio.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/portfolio.js"></script>
     <script src="js/main.js"></script>

@@ -18,17 +18,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Contact actions
     document.getElementById('contact-container').innerHTML = `
-        ${siteConfig.linkedin ? `<a href="${siteConfig.linkedin}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Connect on LinkedIn</a>` : ''}
-        ${siteConfig.email ? `<a href="mailto:${siteConfig.email}" class="btn btn-secondary">Email Me</a>` : ''}
+        ${siteConfig.linkedin ? `<a href="${siteConfig.linkedin}" target="_blank" rel="noopener noreferrer" class="cyber-btn" data-sound="accept"><span class="backdrop"><span class="corner"></span></span><kbd>in</kbd><span>Connect on LinkedIn</span><div class="glitch" aria-hidden="true"><span class="backdrop"><span class="corner"></span></span><kbd>in</kbd><span class="letters"><span>L</span><span>i</span><span>n</span><span>k</span><span>e</span><span>d</span><span>I</span><span>n</span></span></div></a>` : ''}
+        ${siteConfig.email ? `<a href="mailto:${siteConfig.email}" class="cyber-btn cyber-btn-secondary" data-sound="accept"><span class="backdrop"><span class="corner"></span></span><kbd>@</kbd><span>Email Me</span><div class="glitch" aria-hidden="true"><span class="backdrop"><span class="corner"></span></span><kbd>@</kbd><span class="letters"><span>E</span><span>m</span><span>a</span><span>i</span><span>l</span></span></div></a>` : ''}
     `;
 
     document.getElementById('current-year').textContent = new Date().getFullYear();
 
     // 2. Populate Highlights
     const highlightsHtml = profileData.highlights.map(h => `
-        <div class="highlight-item">
+        <div class="highlight-item cyber-highlight">
+            <div class="cyber-highlight-corner"></div>
             <div class="highlight-value counter" data-target="${h.value}">0</div>
-            <div class="highlight-label">${h.label}</div>
+            <div class="highlight-label">[ ${h.label.toUpperCase()} ]</div>
         </div>
     `).join('');
     document.getElementById('highlights-container').innerHTML = highlightsHtml;
@@ -109,10 +110,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. Populate Skills
     const skillsHtml = profileData.skills.map(group => `
-        <div class="skill-category">
-            <h3 class="skill-category-title">${group.category}</h3>
+        <div class="skill-category cyber-skill-card">
+            <div class="cyber-card-backdrop"><div class="corner"></div></div>
+            <h3 class="skill-category-title"><span class="cyber-heading-bracket">[</span> ${group.category} <span class="cyber-heading-bracket">]</span></h3>
             <div class="skill-chips">
-                ${group.items.map(skill => `<span class="skill-chip">${skill}</span>`).join('')}
+                ${group.items.map(skill => `<span class="skill-chip cyber-chip">${skill}</span>`).join('')}
             </div>
         </div>
     `).join('');
@@ -122,13 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const projectsHtml = profileData.projects.map((p, index) => {
         let linksHtml = '';
         if(p.githubUrl) {
-            linksHtml += `<a href="${p.githubUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-small" title="View Source"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>`;
+            linksHtml += `<a href="${p.githubUrl}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-small cyber-btn-secondary" title="View Source" data-sound="accept"><span class="backdrop"><span class="corner"></span></span><kbd><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></kbd><span>Code</span></a>`;
         }
         if(p.demoUrl) {
-            linksHtml += `<a href="${p.demoUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-small" title="Live Demo"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>`;
+            linksHtml += `<a href="${p.demoUrl}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-small cyber-btn-secondary" title="Live Demo" data-sound="accept"><span class="backdrop"><span class="corner"></span></span><kbd><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></kbd><span>Demo</span></a>`;
         }
 
-        // Generate a random icon based on category
+        // Generate a relevant icon based on category
         let icon = '💻';
         if(p.category.includes('AI')) icon = '🧠';
         else if(p.category.includes('Data')) icon = '📊';
@@ -136,18 +138,31 @@ document.addEventListener('DOMContentLoaded', () => {
         else if(p.category.includes('Web')) icon = '🌐';
 
         return `
-        <div class="project-card">
-            <div class="project-image-placeholder">${icon}</div>
-            <div class="project-category">${p.category}</div>
+        <div class="project-card cyber-card">
+            <div class="cyber-card-backdrop"><div class="corner"></div></div>
+            <div class="cyber-card-header">
+                <span class="cyber-sys-tag">SYS.PRJ // 0x0${index + 1}</span>
+                <span class="cyber-category-badge">[ ${p.category} ]</span>
+            </div>
+            <div class="project-image-placeholder cyber-image-box">${icon}</div>
             <h3 class="project-title">${p.title}</h3>
-            <div class="project-subtitle">${p.subtitle} • ${p.date}</div>
+            <div class="project-subtitle">[ ${p.subtitle} ] • ${p.date}</div>
             <p class="project-description">${p.description}</p>
             <div class="project-tech">
-                ${p.technologies.slice(0,4).map(t => `<span class="skill-chip">${t}</span>`).join('')}
-                ${p.technologies.length > 4 ? `<span class="skill-chip">+${p.technologies.length - 4}</span>` : ''}
+                ${p.technologies.slice(0,4).map(t => `<span class="skill-chip cyber-chip">${t}</span>`).join('')}
+                ${p.technologies.length > 4 ? `<span class="skill-chip cyber-chip">+${p.technologies.length - 4}</span>` : ''}
             </div>
             <div class="project-actions" style="margin-top: auto;">
-                <button class="btn btn-primary btn-small view-project-btn" data-id="${p.id}">View Details</button>
+                <button class="cyber-btn btn-small view-project-btn" data-id="${p.id}" data-sound="slide">
+                    <span class="backdrop"><span class="corner"></span></span>
+                    <kbd>↵</kbd>
+                    <span>View Details</span>
+                    <div class="glitch" aria-hidden="true">
+                        <span class="backdrop"><span class="corner"></span></span>
+                        <kbd>↵</kbd>
+                        <span class="letters"><span>D</span><span>e</span><span>t</span><span>a</span><span>i</span><span>l</span><span>s</span></span>
+                    </div>
+                </button>
                 ${linksHtml}
             </div>
         </div>
@@ -155,26 +170,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }).join('');
     document.getElementById('projects-container').innerHTML = projectsHtml;
 
-    // Project Modal Logic
+    // Project Modal Logic (Cyber Modal with Audio FX)
     const modal = document.getElementById('project-modal');
     const modalBody = document.getElementById('modal-body');
-    const modalClose = document.querySelector('.modal-close');
+    const modalActions = document.getElementById('modal-actions');
+    const modalCloseButtons = document.querySelectorAll('.modal-close');
+
+    const closeModal = () => {
+        if (modal.classList.contains('active')) {
+            if (window.soundManager) soundManager.playReject();
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+        }
+    };
 
     document.querySelectorAll('.view-project-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            const projectId = e.target.getAttribute('data-id');
+            const btnEl = e.currentTarget;
+            const projectId = btnEl.getAttribute('data-id');
             const project = profileData.projects.find(p => p.id === projectId);
             
             if(project) {
+                if (window.soundManager) soundManager.playSlide();
+
                 let archHtml = '';
                 if(project.architecture && project.architecture.length > 0) {
                     const nodesHtml = project.architecture.map((node, i) => {
                         let arrow = i < project.architecture.length - 1 ? '<div class="arch-arrow">↓</div>' : '';
-                        return `<div class="arch-node">${node}</div>${arrow}`;
+                        return `<div class="arch-node cyber-arch-node">${node}</div>${arrow}`;
                     }).join('');
                     archHtml = `
                         <div class="modal-section">
-                            <h3>Architecture</h3>
+                            <h3><span class="cyber-heading-bracket">[</span> Architecture Pipeline <span class="cyber-heading-bracket">]</span></h3>
                             <div class="arch-flow">
                                 ${nodesHtml}
                             </div>
@@ -183,16 +210,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 modalBody.innerHTML = `
-                    <h2>${project.title}</h2>
-                    <div class="subtitle">${project.subtitle} • ${project.date}</div>
+                    <div class="modal-title-wrap">
+                        <h2><span>${project.title}</span></h2>
+                        <div class="subtitle">[ ${project.subtitle} ] • ${project.date}</div>
+                    </div>
                     
                     <div class="modal-section">
-                        <h3>Overview</h3>
+                        <h3><span class="cyber-heading-bracket">[</span> System Overview <span class="cyber-heading-bracket">]</span></h3>
                         <p>${project.description}</p>
                     </div>
                     
                     <div class="modal-section">
-                        <h3>Key Features / Findings</h3>
+                        <h3><span class="cyber-heading-bracket">[</span> Key Features &amp; Implementation <span class="cyber-heading-bracket">]</span></h3>
                         <ul>
                             ${project.details.map(d => `<li>${d}</li>`).join('')}
                         </ul>
@@ -201,12 +230,43 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${archHtml}
 
                     <div class="modal-section">
-                        <h3>Technologies</h3>
+                        <h3><span class="cyber-heading-bracket">[</span> Tech Stack <span class="cyber-heading-bracket">]</span></h3>
                         <div class="skill-chips">
-                            ${project.technologies.map(t => `<span class="skill-chip">${t}</span>`).join('')}
+                            ${project.technologies.map(t => `<span class="skill-chip cyber-chip">${t}</span>`).join('')}
                         </div>
                     </div>
                 `;
+
+                // Update Cyber Modal Actions
+                let actionsHtml = `
+                    <button class="cyber-btn modal-close-btn" data-action="Cancel" data-sound="reject">
+                        <span class="backdrop"><span class="corner"></span></span>
+                        <kbd>esc</kbd>
+                        <span>Close</span>
+                    </button>
+                `;
+                if (project.githubUrl) {
+                    actionsHtml += `
+                        <a href="${project.githubUrl}" target="_blank" rel="noopener noreferrer" class="cyber-btn" data-action="Proceed" data-sound="accept">
+                            <span class="backdrop"><span class="corner"></span></span>
+                            <kbd>↵</kbd>
+                            <span>View Source</span>
+                        </a>
+                    `;
+                }
+                if (project.demoUrl) {
+                    actionsHtml += `
+                        <a href="${project.demoUrl}" target="_blank" rel="noopener noreferrer" class="cyber-btn" data-action="Proceed" data-sound="accept">
+                            <span class="backdrop"><span class="corner"></span></span>
+                            <kbd>🚀</kbd>
+                            <span>Live Demo</span>
+                        </a>
+                    `;
+                }
+                modalActions.innerHTML = actionsHtml;
+
+                // Re-bind action close button
+                modalActions.querySelector('.modal-close-btn').addEventListener('click', closeModal);
                 
                 modal.classList.add('active');
                 modal.setAttribute('aria-hidden', 'false');
@@ -214,24 +274,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    modalClose.addEventListener('click', () => {
-        modal.classList.remove('active');
-        modal.setAttribute('aria-hidden', 'true');
-    });
+    modalCloseButtons.forEach(btn => btn.addEventListener('click', closeModal));
     
-    // Close on click outside
+    // Close on click outside modal card
     modal.addEventListener('click', (e) => {
         if(e.target === modal) {
-            modal.classList.remove('active');
-            modal.setAttribute('aria-hidden', 'true');
+            closeModal();
         }
     });
 
     // ESC to close
     document.addEventListener('keydown', (e) => {
         if(e.key === 'Escape' && modal.classList.contains('active')) {
-            modal.classList.remove('active');
-            modal.setAttribute('aria-hidden', 'true');
+            closeModal();
         }
     });
 
@@ -272,11 +327,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         const certHtml = filtered.map(c => `
-            <div class="cert-card">
-                <div class="cert-date">${c.date}</div>
+            <div class="cert-card cyber-cert-card">
+                <div class="cyber-card-backdrop"><div class="corner"></div></div>
+                <div class="cert-date"><span class="cyber-code-accent">[</span> ${c.date} <span class="cyber-code-accent">]</span></div>
                 <h3 class="cert-title">${c.title}</h3>
                 <div class="cert-issuer">${c.issuer}</div>
-                ${c.url && c.url !== '#' ? `<a href="${c.url}" target="_blank" rel="noopener noreferrer" class="cert-link">Verify Credential →</a>` : '<span class="cert-link" style="color:var(--text-muted)">Credential link unavailable</span>'}
+                ${c.url && c.url !== '#' ? `<a href="${c.url}" target="_blank" rel="noopener noreferrer" class="cert-link cyber-link" data-sound="accept">VERIFY CREDENTIAL →</a>` : '<span class="cert-link" style="color:var(--text-muted)">Credential link unavailable</span>'}
             </div>
         `).join('');
         
@@ -289,15 +345,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            e.target.classList.add('active');
-            renderCerts(e.target.getAttribute('data-filter'));
+            e.currentTarget.classList.add('active');
+            if (window.soundManager) soundManager.playAccept();
+            renderCerts(e.currentTarget.getAttribute('data-filter'));
         });
     });
 
     // 9. Populate Awards
     const awardsHtml = profileData.awards.map(a => `
-        <div class="cert-card">
-            <div class="cert-date">${a.date || 'Recognized'}</div>
+        <div class="cert-card cyber-award-card">
+            <div class="cyber-card-backdrop"><div class="corner"></div></div>
+            <div class="cert-date"><span class="cyber-code-accent">[</span> ${a.date || 'RECOGNIZED'} <span class="cyber-code-accent">]</span></div>
             <h3 class="cert-title">${a.title}</h3>
             <div class="cert-issuer">${a.description}</div>
         </div>

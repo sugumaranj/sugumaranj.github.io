@@ -109,6 +109,32 @@
         width: 130px;
         height: 130px;
     }
+    .cyber-modal-card {
+        width: 96vw;
+        max-height: 90vh;
+    }
+    .cyber-modal-card::before {
+        display: none;
+    }
+    .cyber-modal-card .body__content {
+        padding: var(--space-5) var(--space-4);
+    }
+    .cyber-modal-card .modal__actions {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+    .cyber-modal-card .modal__actions .cyber-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .hero-actions .cyber-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .contact-actions .cyber-btn {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* Profile Image Mobile Fix */
