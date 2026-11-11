@@ -1,34 +1,41 @@
 // main.js - Core UI Controller & Cyber Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Theme Toggle
+    // Theme Switcher System
     const themeToggle = document.getElementById('theme-toggle');
     const sunIcon = document.querySelector('.sun-icon');
     const moonIcon = document.querySelector('.moon-icon');
     
-    // Check local storage for theme
-    let currentTheme = localStorage.getItem('theme') || 'dark';
-    
-    if(currentTheme === 'light') {
-        document.body.setAttribute('data-theme', 'light');
-        sunIcon.style.display = 'none';
-        moonIcon.style.display = 'block';
+    function applyTheme(theme) {
+        if (theme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.body.setAttribute('data-theme', 'light');
+            document.body.classList.remove('dark-theme');
+            document.body.classList.add('light-theme');
+            if (sunIcon) sunIcon.style.display = 'none';
+            if (moonIcon) moonIcon.style.display = 'block';
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+            document.body.removeAttribute('data-theme');
+            document.body.classList.remove('light-theme');
+            document.body.classList.add('dark-theme');
+            if (sunIcon) sunIcon.style.display = 'block';
+            if (moonIcon) moonIcon.style.display = 'none';
+            localStorage.setItem('theme', 'dark');
+        }
     }
+
+    // Initialize Theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    applyTheme(savedTheme);
 
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             if (window.soundManager) soundManager.playAccept();
-            if(document.body.getAttribute('data-theme') === 'light') {
-                document.body.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'dark');
-                sunIcon.style.display = 'block';
-                moonIcon.style.display = 'none';
-            } else {
-                document.body.setAttribute('data-theme', 'light');
-                localStorage.setItem('theme', 'light');
-                sunIcon.style.display = 'none';
-                moonIcon.style.display = 'block';
-            }
+            const isCurrentlyLight = document.body.getAttribute('data-theme') === 'light' || 
+                                     document.documentElement.getAttribute('data-theme') === 'light';
+            applyTheme(isCurrentlyLight ? 'dark' : 'light');
         });
     }
 
@@ -78,10 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         mobileOverlay.addEventListener('click', (e) => {
-            if(e.target.tagName === 'A') {
+            if (e.target.tagName === 'A' || e.target === mobileOverlay) {
                 hamburgerBtn.classList.remove('active');
                 mobileOverlay.classList.remove('active');
-                if (window.soundManager) soundManager.playAccept();
+                if (window.soundManager) {
+                    if (e.target.tagName === 'A') soundManager.playAccept();
+                    else soundManager.playReject();
+                }
             }
         });
     }

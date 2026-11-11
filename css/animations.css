@@ -74,16 +74,28 @@
     .stagger-grid.is-visible > *:nth-child(12) { transition-delay: 0.60s; }
     .stagger-grid.is-visible > *:nth-child(n+13) { transition-delay: 0.65s; }
 
-    /* Orbit Animation (Preserved) */
+    /* Orbit Animation */
     @keyframes orbit {
         from { transform: rotate(0deg) translateX(100px) rotate(0deg); }
         to { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+    }
+
+    @keyframes orbit-mobile {
+        from { transform: rotate(0deg) translateX(65px) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(65px) rotate(-360deg); }
     }
 
     .orbit-1 { animation: orbit 15s linear infinite; }
     .orbit-2 { animation: orbit 20s linear infinite; animation-delay: -5s; }
     .orbit-3 { animation: orbit 25s linear infinite; animation-delay: -10s; }
     .orbit-4 { animation: orbit 18s linear infinite; animation-delay: -15s; }
+
+    @media (max-width: 480px) {
+        .orbit-1 { animation: orbit-mobile 15s linear infinite; }
+        .orbit-2 { animation: orbit-mobile 20s linear infinite; animation-delay: -5s; }
+        .orbit-3 { animation: orbit-mobile 25s linear infinite; animation-delay: -10s; }
+        .orbit-4 { animation: orbit-mobile 18s linear infinite; animation-delay: -15s; }
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {

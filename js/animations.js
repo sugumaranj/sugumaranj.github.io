@@ -67,7 +67,7 @@ window.addEventListener('load', () => {
         const counterObserverOptions = {
             root: null,
             rootMargin: '0px',
-            threshold: 0.5
+            threshold: 0.2
         };
 
         const counterObserver = new IntersectionObserver((entries, observer) => {
