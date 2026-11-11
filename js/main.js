@@ -30,6 +30,83 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     applyTheme(savedTheme);
 
+    // Cyberpunk BIOS Boot Preloader Controller
+    const initCyberPreloader = () => {
+        const preloader = document.getElementById('cyber-preloader');
+        if (!preloader) return;
+
+        const terminal = document.getElementById('preloader-terminal');
+        const progressFill = document.getElementById('preloader-progress-fill');
+        const progressText = document.getElementById('preloader-progress-text');
+        const skipBtn = document.getElementById('preloader-skip');
+
+        let isDismissed = false;
+
+        const dismissPreloader = () => {
+            if (isDismissed) return;
+            isDismissed = true;
+            if (window.soundManager && soundManager.synthBoot) {
+                soundManager.synthBoot();
+            }
+            preloader.classList.add('fade-out');
+            setTimeout(() => {
+                preloader.style.display = 'none';
+                preloader.setAttribute('aria-hidden', 'true');
+            }, 650);
+        };
+
+        // Allow immediate skip via button, click anywhere on overlay, or Escape key
+        if (skipBtn) {
+            skipBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dismissPreloader();
+            });
+        }
+        preloader.addEventListener('click', () => {
+            dismissPreloader();
+        });
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+                dismissPreloader();
+            }
+        });
+
+        // Fast cyberpunk terminal boot telemetry progression
+        const messages = [
+            { progress: 25 },
+            { progress: 55 },
+            { progress: 85 },
+            { progress: 100, success: true }
+        ];
+
+        let step = 0;
+        const interval = setInterval(() => {
+            if (isDismissed) {
+                clearInterval(interval);
+                return;
+            }
+
+            if (step < messages.length) {
+                const msg = messages[step];
+                if (progressFill) progressFill.style.width = msg.progress + '%';
+                if (progressText) progressText.textContent = msg.progress + '%';
+
+                if (terminal) {
+                    const lines = terminal.querySelectorAll('.terminal-line');
+                    if (lines[step]) {
+                        lines[step].classList.add(msg.success ? 'success-line' : 'active-line');
+                    }
+                }
+                step++;
+            } else {
+                clearInterval(interval);
+                setTimeout(dismissPreloader, 350);
+            }
+        }, 280); // ~1.1s total progression
+    };
+
+    initCyberPreloader();
+
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             if (window.soundManager) soundManager.playAccept();

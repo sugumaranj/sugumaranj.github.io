@@ -32,6 +32,43 @@
 </head>
 <body class="dark-theme">
     
+    <!-- Cyberpunk BIOS Boot Preloader -->
+    <div id="cyber-preloader" class="cyber-preloader" role="dialog" aria-label="System Boot Sequence">
+        <div class="preloader-scanline"></div>
+        <div class="preloader-hud-border top-left">SYS.INIT // v2.6.4</div>
+        <div class="preloader-hud-border top-right">HOST: SUGUMARAN_J</div>
+        <div class="preloader-hud-border bottom-left">PROTOCOL: NEURAL_LINK</div>
+        <div class="preloader-hud-border bottom-right">SEC_LVL // ROOT</div>
+        
+        <div class="preloader-content">
+            <div class="preloader-logo-wrap">
+                <div class="preloader-glitch-logo" data-text="SJ.">SJ<span>.</span></div>
+                <div class="preloader-status-tag">[ SYSTEM INITIALIZING ]</div>
+            </div>
+            
+            <div class="preloader-terminal" id="preloader-terminal">
+                <div class="terminal-line active-line">> BIOS DATE: 2026-11-11 // CPU: AGY-CYBER-CORE</div>
+                <div class="terminal-line">> MOUNTING MODULES: [CYBERSECURITY, AI/ML, FULL-STACK]...</div>
+                <div class="terminal-line">> CALIBRATING NEURAL GRAPHICS INTERFACE...</div>
+                <div class="terminal-line">> ACCESS GRANTED // WELCOME TO THE GRID. <span class="terminal-cursor">_</span></div>
+            </div>
+            
+            <div class="preloader-progress-wrap">
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="preloader-progress-fill"></div>
+                </div>
+                <div class="progress-meta">
+                    <span class="progress-text" id="preloader-progress-text">0%</span>
+                    <span class="progress-label">KERNEL LOADED</span>
+                </div>
+            </div>
+
+            <button class="preloader-skip-btn" id="preloader-skip" aria-label="Skip initialization">
+                <span>[ CLICK OR ESC TO ENTER ]</span>
+            </button>
+        </div>
+    </div>
+
     <div class="scroll-progress"></div>
 
     <!-- Navigation -->
