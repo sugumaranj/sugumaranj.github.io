@@ -249,6 +249,7 @@ body {
 }
 
 /* Skip Button */
+.preloader-skip,
 .preloader-skip-btn {
     background: transparent;
     border: 1px dashed rgba(0, 240, 255, 0.35);
@@ -262,6 +263,7 @@ body {
     letter-spacing: 0.1em;
 }
 
+.preloader-skip:hover,
 .preloader-skip-btn:hover {
     background: rgba(0, 240, 255, 0.12);
     color: #00f0ff;

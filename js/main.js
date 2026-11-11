@@ -42,11 +42,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let isDismissed = false;
 
-        const dismissPreloader = () => {
+        // Engage futuristic boot audio sequence (hum + telemetry chirps)
+        if (window.soundManager && soundManager.startBootSequence) {
+            soundManager.startBootSequence();
+        }
+
+        const dismissPreloader = (skippedByUser = false) => {
             if (isDismissed) return;
             isDismissed = true;
-            if (window.soundManager && soundManager.synthBoot) {
-                soundManager.synthBoot();
+            if (window.soundManager) {
+                soundManager.stopBootDrone();
+                if (skippedByUser) {
+                    soundManager.playSlide();
+                }
             }
             preloader.classList.add('fade-out');
             setTimeout(() => {
@@ -55,19 +63,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 650);
         };
 
-        // Allow immediate skip via button, click anywhere on overlay, or Escape key
+        // Allow immediate skip via button, click anywhere on overlay, or Escape/Enter key
         if (skipBtn) {
             skipBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                dismissPreloader();
+                dismissPreloader(true);
             });
         }
         preloader.addEventListener('click', () => {
-            dismissPreloader();
+            dismissPreloader(true);
         });
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
-                dismissPreloader();
+                dismissPreloader(true);
             }
         });
 
@@ -97,10 +105,20 @@ document.addEventListener('DOMContentLoaded', () => {
                         lines[step].classList.add(msg.success ? 'success-line' : 'active-line');
                     }
                 }
+
+                // Audio cue per progression stage
+                if (window.soundManager) {
+                    if (msg.success) {
+                        soundManager.playBootChime();
+                    } else {
+                        soundManager.playTelemetryBlip(step);
+                    }
+                }
+
                 step++;
             } else {
                 clearInterval(interval);
-                setTimeout(dismissPreloader, 350);
+                setTimeout(() => dismissPreloader(false), 400);
             }
         }, 280); // ~1.1s total progression
     };
