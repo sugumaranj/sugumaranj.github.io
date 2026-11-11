@@ -9,6 +9,19 @@
         gap: var(--space-8);
         text-align: center;
     }
+    .about-sticky-container {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+    }
+    .about-sticky-col {
+        position: static;
+        max-width: 440px;
+        margin: 0 auto;
+        width: 100%;
+    }
+    .sticky-scroll-indicator {
+        display: none;
+    }
     .hero-actions, .social-links, .crops-to-code-visual {
         justify-content: center;
     }
@@ -85,6 +98,16 @@
     }
     .contact-card {
         padding: var(--space-6) var(--space-4);
+    }
+    .about-sticky-card {
+        padding: var(--space-6) var(--space-4);
+    }
+    .about-story-card {
+        padding: var(--space-6) var(--space-4);
+    }
+    .sticky-image-container {
+        width: 130px;
+        height: 130px;
     }
 }
 

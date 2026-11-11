@@ -33,12 +33,78 @@ document.addEventListener('DOMContentLoaded', () => {
     `).join('');
     document.getElementById('highlights-container').innerHTML = highlightsHtml;
 
-    // 3. Populate About
+    // 3. Populate About Story Cards (Sticky Scroll Layout)
     document.getElementById('about-content').innerHTML = `
-        <p>${profileData.about.intro}</p>
-        <p><strong>Where I Started:</strong> ${profileData.about.journey.start}</p>
-        <p><strong>Where I Am Now:</strong> ${profileData.about.journey.current}</p>
-        <p><strong>What I Build:</strong> ${profileData.about.journey.focus}</p>
+        <div class="about-story-card" data-step="1">
+            <div class="story-card-header">
+                <span class="story-step-badge">Chapter 01</span>
+                <span class="story-tag">Overview</span>
+            </div>
+            <h3 class="story-title">Who I Am</h3>
+            <p class="story-body">${profileData.about.intro}</p>
+        </div>
+
+        <div class="about-story-card" data-step="2">
+            <div class="story-card-header">
+                <span class="story-step-badge">Chapter 02</span>
+                <span class="story-tag story-tag-green">The Roots</span>
+            </div>
+            <h3 class="story-title">Where I Started — Horticulture</h3>
+            <p class="story-body">${profileData.about.journey.start}</p>
+            <div class="story-highlight-pill">
+                <span class="pill-emoji">🌱</span>
+                <span>Practical field discipline: observing systemic problems, protecting crops, and managing real-world growth.</span>
+            </div>
+        </div>
+
+        <div class="about-story-card" data-step="3">
+            <div class="story-card-header">
+                <span class="story-step-badge">Chapter 03</span>
+                <span class="story-tag story-tag-blue">The Pivot</span>
+            </div>
+            <h3 class="story-title">Where I Am Now — Computer Applications</h3>
+            <p class="story-body">${profileData.about.journey.current}</p>
+            <div class="story-highlight-pill">
+                <span class="pill-emoji">💻</span>
+                <span>Computational foundations: systems, algorithms, databases, and hands-on software development.</span>
+            </div>
+        </div>
+
+        <div class="about-story-card" data-step="4">
+            <div class="story-card-header">
+                <span class="story-step-badge">Chapter 04</span>
+                <span class="story-tag story-tag-purple">The Build</span>
+            </div>
+            <h3 class="story-title">What I Build — Cybersecurity & Practical AI</h3>
+            <p class="story-body">${profileData.about.journey.focus}</p>
+            <div class="story-highlight-pill">
+                <span class="pill-emoji">🛡️</span>
+                <span>Working systems: CocoaGuard AI (crop diagnostics), WAF-XAI (web app firewall), and WebVault.</span>
+            </div>
+        </div>
+
+        <div class="about-story-card" data-step="5">
+            <div class="story-card-header">
+                <span class="story-step-badge">Chapter 05</span>
+                <span class="story-tag story-tag-cyan">Mindset</span>
+            </div>
+            <h3 class="story-title">Engineering Philosophy</h3>
+            <p class="story-body">I believe in learning by doing. Rather than just understanding concepts in isolation, I connect disciplines to solve genuine needs—whether protecting web applications or empowering agricultural resilience with machine learning.</p>
+            <div class="story-bullets">
+                <div class="story-bullet-item">
+                    <span class="bullet-check">✓</span>
+                    <span><strong>Hands-On Builder:</strong> Real implementations backed by working repositories and live prototypes.</span>
+                </div>
+                <div class="story-bullet-item">
+                    <span class="bullet-check">✓</span>
+                    <span><strong>Continuous Learner:</strong> 31+ certifications across AI, Cloud, Cybersecurity, and Web Development.</span>
+                </div>
+                <div class="story-bullet-item">
+                    <span class="bullet-check">✓</span>
+                    <span><strong>Cross-Disciplinary:</strong> Applying cutting-edge AI directly to agricultural domain knowledge.</span>
+                </div>
+            </div>
+        </div>
     `;
 
     // 4. Populate Skills

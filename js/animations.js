@@ -25,8 +25,8 @@ window.addEventListener('load', () => {
         // Map elements to their desired reveal animations
         const animationMap = [
             { selector: '.section-title', class: 'reveal-up' },
-            { selector: '.about-text', class: 'reveal-left' },
-            { selector: '.about-image-wrapper', class: 'reveal-right' },
+            { selector: '.about-sticky-col', class: 'reveal-fade' },
+            { selector: '.about-story-card', class: 'reveal-up' },
             { selector: '.timeline-item', class: 'reveal-up' },
             // For grids, we animate the parent and the children stagger in
             { selector: '.projects-grid', class: 'stagger-grid' },
@@ -43,6 +43,24 @@ window.addEventListener('load', () => {
                 observer.observe(el);
             });
         });
+
+        // Active Story Card Step Observer (Sticky narrative sync)
+        const storyCards = document.querySelectorAll('.about-story-card');
+        if (storyCards.length > 0) {
+            const storyObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        storyCards.forEach(card => card.classList.remove('active-step'));
+                        entry.target.classList.add('active-step');
+                    }
+                });
+            }, {
+                root: null,
+                threshold: 0.4
+            });
+
+            storyCards.forEach(card => storyObserver.observe(card));
+        }
 
         // Number Counting Animation
         const counters = document.querySelectorAll('.counter');
