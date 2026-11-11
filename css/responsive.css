@@ -96,7 +96,7 @@ html, body {
     }
 
     [data-theme='light'] .connector::after {
-        border-top-color: #0284c7;
+        border-top-color: #2563eb;
     }
 }
 
