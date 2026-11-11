@@ -1,26 +1,26 @@
 // audio.js - Futuristic Cyberpunk Audio Engine
-// Provides HTML5 Audio + Procedural Web Audio API Synthesis fallback for 100% offline & zero-latency reliability.
+// Provides HTML5 Audio + Procedural Web Audio API Synthesis for 100% offline & zero-latency reliability.
 
 const soundManager = (() => {
     let muted = localStorage.getItem('cyber_sound_muted') === 'true';
     let audioCtx = null;
-    let bootDroneNodes = null;
-    let bootDronePending = false;
+    let loadingSoundPending = false;
+    let chatterInterval = null;
+    let droneNodes = null;
 
-    // CDN Audio previews
+    // CDN Audio previews fallback
     const cdnAudio = {
         slide: new Audio('https://cdn.freesound.org/previews/367/367997_6512973-lq.mp3'),
         accept: new Audio('https://cdn.freesound.org/previews/220/220166_4100837-lq.mp3'),
         reject: new Audio('https://cdn.freesound.org/previews/657/657950_6142149-lq.mp3')
     };
 
-    // Pre-configure volume
     Object.values(cdnAudio).forEach(a => {
         a.volume = 0.45;
         a.preload = 'auto';
     });
 
-    // Initialize AudioContext & resume if suspended
+    // Initialize AudioContext & auto-resume on any user gesture
     const initAudioContext = () => {
         if (!audioCtx) {
             try {
@@ -28,28 +28,61 @@ const soundManager = (() => {
                 if (AudioCtxClass) {
                     audioCtx = new AudioCtxClass();
                 }
-            } catch (e) {
-                // AudioContext not supported
-            }
+            } catch (e) {}
         }
         if (audioCtx && audioCtx.state === 'suspended') {
             audioCtx.resume().then(() => {
-                if (bootDronePending && !muted) {
-                    bootDronePending = false;
-                    startBootDroneInternal();
+                if (loadingSoundPending && !muted) {
+                    loadingSoundPending = false;
+                    startLoadingSoundInternal();
                 }
             }).catch(() => {});
         } else if (audioCtx && audioCtx.state === 'running') {
-            if (bootDronePending && !muted) {
-                bootDronePending = false;
-                startBootDroneInternal();
+            if (loadingSoundPending && !muted) {
+                loadingSoundPending = false;
+                startLoadingSoundInternal();
             }
         }
     };
 
-    // Ambient Boot Drone (Low sub-bass power humming while preloader loads)
-    const startBootDroneInternal = () => {
-        if (muted || !audioCtx || bootDroneNodes || audioCtx.state !== 'running') return;
+    // Continuous High-Speed Digital Data Packet Chatter (simulates rapid memory decryption/scanning)
+    const startChatter = () => {
+        if (chatterInterval || !audioCtx || audioCtx.state !== 'running') return;
+        const cyberScale = [1175, 1318, 1568, 1760, 2093, 2349, 2637];
+        chatterInterval = setInterval(() => {
+            if (muted || !audioCtx || audioCtx.state !== 'running') return;
+            try {
+                const now = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                const freq = cyberScale[Math.floor(Math.random() * cyberScale.length)];
+
+                osc.type = Math.random() > 0.5 ? 'sine' : 'triangle';
+                osc.frequency.setValueAtTime(freq, now);
+
+                gain.gain.setValueAtTime(0.001, now);
+                gain.gain.linearRampToValueAtTime(0.025, now + 0.003);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.02);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start(now);
+                osc.stop(now + 0.025);
+            } catch (e) {}
+        }, 45); // ~22 rapid rhythmic digital data clicks per second
+    };
+
+    const stopChatter = () => {
+        if (chatterInterval) {
+            clearInterval(chatterInterval);
+            chatterInterval = null;
+        }
+    };
+
+    // Ascending Cyber Power Hum (smooth pitch glide as progress reaches 100%)
+    const startAscendingDrone = () => {
+        if (droneNodes || !audioCtx || audioCtx.state !== 'running') return;
         try {
             const now = audioCtx.currentTime;
             const osc1 = audioCtx.createOscillator();
@@ -58,17 +91,17 @@ const soundManager = (() => {
             const gain = audioCtx.createGain();
 
             osc1.type = 'sine';
-            osc1.frequency.setValueAtTime(55, now); // A1 sub-fundamental
+            osc1.frequency.setValueAtTime(75, now); // 75Hz sub-power
 
-            osc2.type = 'sine';
-            osc2.frequency.setValueAtTime(110.8, now); // A2 harmonic with subtle 0.8Hz phase pulse
+            osc2.type = 'sawtooth';
+            osc2.frequency.setValueAtTime(150, now);
 
             filter.type = 'lowpass';
-            filter.frequency.setValueAtTime(180, now);
-            filter.Q.setValueAtTime(2.0, now);
+            filter.frequency.setValueAtTime(240, now);
+            filter.Q.setValueAtTime(3.0, now);
 
             gain.gain.setValueAtTime(0.0001, now);
-            gain.gain.exponentialRampToValueAtTime(0.04, now + 0.35);
+            gain.gain.linearRampToValueAtTime(0.035, now + 0.2);
 
             osc1.connect(filter);
             osc2.connect(filter);
@@ -78,19 +111,35 @@ const soundManager = (() => {
             osc1.start(now);
             osc2.start(now);
 
-            bootDroneNodes = { osc1, osc2, gain, filter };
+            droneNodes = { osc1, osc2, filter, gain };
         } catch (e) {}
     };
 
-    const stopBootDroneInternal = () => {
-        bootDronePending = false;
-        if (!bootDroneNodes || !audioCtx) return;
+    const updateDronePitch = (progressPercent) => {
+        if (!droneNodes || !audioCtx || audioCtx.state !== 'running') return;
         try {
             const now = audioCtx.currentTime;
-            bootDroneNodes.gain.gain.cancelScheduledValues(now);
-            bootDroneNodes.gain.gain.setValueAtTime(bootDroneNodes.gain.gain.value, now);
-            bootDroneNodes.gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.15);
-            const { osc1, osc2 } = bootDroneNodes;
+            const baseFreq = 75 + (progressPercent / 100) * 205;
+            droneNodes.osc1.frequency.cancelScheduledValues(now);
+            droneNodes.osc1.frequency.exponentialRampToValueAtTime(Math.max(60, baseFreq), now + 0.25);
+
+            droneNodes.osc2.frequency.cancelScheduledValues(now);
+            droneNodes.osc2.frequency.exponentialRampToValueAtTime(Math.max(120, baseFreq * 2), now + 0.25);
+
+            const cutoff = 240 + (progressPercent / 100) * 600;
+            droneNodes.filter.frequency.cancelScheduledValues(now);
+            droneNodes.filter.frequency.exponentialRampToValueAtTime(Math.max(200, cutoff), now + 0.25);
+        } catch (e) {}
+    };
+
+    const stopAscendingDrone = () => {
+        if (!droneNodes || !audioCtx) return;
+        try {
+            const now = audioCtx.currentTime;
+            droneNodes.gain.gain.cancelScheduledValues(now);
+            droneNodes.gain.gain.setValueAtTime(droneNodes.gain.gain.value, now);
+            droneNodes.gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.15);
+            const { osc1, osc2 } = droneNodes;
             setTimeout(() => {
                 try {
                     osc1.stop();
@@ -100,104 +149,103 @@ const soundManager = (() => {
                 } catch (e) {}
             }, 180);
         } catch (e) {}
-        bootDroneNodes = null;
+        droneNodes = null;
     };
 
-    // High-tech Telemetry Chirps during preloader steps
-    const playTelemetryBlip = (step) => {
-        if (muted) return;
-        initAudioContext();
-        if (!audioCtx || audioCtx.state !== 'running') return;
+    const startLoadingSoundInternal = () => {
+        if (muted || !audioCtx || audioCtx.state !== 'running') return;
+        startAscendingDrone();
+        startChatter();
+    };
 
+    // Step Telemetry Diagnostic Chirps
+    const playStepChirp = (step) => {
+        if (muted || !audioCtx || audioCtx.state !== 'running') return;
         try {
             const now = audioCtx.currentTime;
             if (step === 0) {
-                // Step 0: BIOS / CPU Core - Crisp diagnostic blip
+                // Step 0: BIOS initialized - Fast descending dual chirp
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(659.25, now);
-                osc.frequency.exponentialRampToValueAtTime(587.33, now + 0.045);
+                osc.frequency.setValueAtTime(880, now);
+                osc.frequency.exponentialRampToValueAtTime(587, now + 0.05);
 
                 gain.gain.setValueAtTime(0.001, now);
-                gain.gain.linearRampToValueAtTime(0.05, now + 0.005);
-                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.045);
+                gain.gain.linearRampToValueAtTime(0.06, now + 0.005);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
 
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
                 osc.start(now);
-                osc.stop(now + 0.05);
+                osc.stop(now + 0.055);
             } else if (step === 1) {
-                // Step 1: Mounting Modules - Dual ascending cyber data chirp
-                const osc1 = audioCtx.createOscillator();
-                const osc2 = audioCtx.createOscillator();
-                const gain1 = audioCtx.createGain();
-                const gain2 = audioCtx.createGain();
+                // Step 1: Mounting Modules - Ascending cyber burst
+                [
+                    { f: 659, t: 0, d: 0.04 },
+                    { f: 880, t: 0.025, d: 0.045 },
+                    { f: 1175, t: 0.05, d: 0.06 }
+                ].forEach(note => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    const st = now + note.t;
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(note.f, st);
 
-                osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(587.33, now); // D5
-                gain1.gain.setValueAtTime(0.001, now);
-                gain1.gain.linearRampToValueAtTime(0.055, now + 0.004);
-                gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.04);
+                    gain.gain.setValueAtTime(0.001, st);
+                    gain.gain.linearRampToValueAtTime(0.05, st + 0.004);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, st + note.d);
 
-                osc2.type = 'triangle';
-                osc2.frequency.setValueAtTime(880, now + 0.035); // A5
-                gain2.gain.setValueAtTime(0.001, now + 0.035);
-                gain2.gain.linearRampToValueAtTime(0.06, now + 0.04);
-                gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.085);
-
-                osc1.connect(gain1);
-                gain1.connect(audioCtx.destination);
-                osc2.connect(gain2);
-                gain2.connect(audioCtx.destination);
-
-                osc1.start(now);
-                osc1.stop(now + 0.045);
-                osc2.start(now + 0.035);
-                osc2.stop(now + 0.09);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(st);
+                    osc.stop(st + note.d + 0.01);
+                });
             } else if (step === 2) {
-                // Step 2: Calibrating Neural Graphics - Resonant cyber sweep
+                // Step 2: Calibrating Neural Graphics - Resonant laser sweep
                 const osc = audioCtx.createOscillator();
                 const filter = audioCtx.createBiquadFilter();
                 const gain = audioCtx.createGain();
 
-                osc.type = 'sine';
+                osc.type = 'sawtooth';
                 osc.frequency.setValueAtTime(740, now);
-                osc.frequency.exponentialRampToValueAtTime(1174.66, now + 0.08); // F#5 -> D6
+                osc.frequency.exponentialRampToValueAtTime(1480, now + 0.08);
 
                 filter.type = 'bandpass';
                 filter.frequency.setValueAtTime(1200, now);
-                filter.Q.setValueAtTime(2.5, now);
+                filter.frequency.exponentialRampToValueAtTime(1600, now + 0.08);
+                filter.Q.setValueAtTime(4.0, now);
 
                 gain.gain.setValueAtTime(0.001, now);
-                gain.gain.linearRampToValueAtTime(0.07, now + 0.008);
-                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+                gain.gain.linearRampToValueAtTime(0.065, now + 0.008);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.085);
 
                 osc.connect(filter);
                 filter.connect(gain);
                 gain.connect(audioCtx.destination);
 
                 osc.start(now);
-                osc.stop(now + 0.095);
+                osc.stop(now + 0.09);
             }
         } catch (e) {}
     };
 
-    // Majestic Futuristic Cyber Boot Chime (D major 9th voicing)
+    // Majestic Cyber Boot Chime (D major 9th voicing on 100% completion)
     const playBootChime = () => {
         if (muted) return;
         initAudioContext();
-        stopBootDroneInternal();
+        stopChatter();
+        stopAscendingDrone();
         if (!audioCtx || audioCtx.state !== 'running') return;
 
         try {
             const now = audioCtx.currentTime;
             const chord = [
-                { freq: 293.66, type: 'sine', gain: 0.07, delay: 0.00, decay: 0.70 }, // D4
-                { freq: 440.00, type: 'sine', gain: 0.065, delay: 0.02, decay: 0.75 }, // A4
-                { freq: 587.33, type: 'sine', gain: 0.06, delay: 0.04, decay: 0.80 }, // D5
-                { freq: 739.99, type: 'triangle', gain: 0.045, delay: 0.06, decay: 0.75 }, // F#5
-                { freq: 1318.51, type: 'sine', gain: 0.04, delay: 0.08, decay: 0.85 }  // E6 shimmer
+                { freq: 293.66, type: 'sine', gain: 0.08, delay: 0.00, decay: 0.80 }, // D4
+                { freq: 440.00, type: 'sine', gain: 0.075, delay: 0.02, decay: 0.85 }, // A4
+                { freq: 587.33, type: 'sine', gain: 0.07, delay: 0.04, decay: 0.90 }, // D5
+                { freq: 739.99, type: 'triangle', gain: 0.05, delay: 0.06, decay: 0.85 }, // F#5
+                { freq: 1318.51, type: 'sine', gain: 0.045, delay: 0.08, decay: 0.95 }  // E6 shimmer
             ];
 
             const masterGain = audioCtx.createGain();
@@ -214,7 +262,7 @@ const soundManager = (() => {
                 osc.frequency.setValueAtTime(note.freq, startTime);
 
                 noteGain.gain.setValueAtTime(0.0001, startTime);
-                noteGain.gain.linearRampToValueAtTime(note.gain, startTime + 0.012);
+                noteGain.gain.linearRampToValueAtTime(note.gain, startTime + 0.015);
                 noteGain.gain.exponentialRampToValueAtTime(0.0001, stopTime);
 
                 osc.connect(noteGain);
@@ -226,7 +274,7 @@ const soundManager = (() => {
         } catch (e) {}
     };
 
-    // Web Audio Synthesizer fallback for instant latency-free sci-fi UI sounds
+    // Web Audio Synthesizer fallback for UI clicks & transitions
     const synthSlide = () => {
         if (!audioCtx) return;
         try {
@@ -316,7 +364,6 @@ const soundManager = (() => {
         } catch (e) {}
     };
 
-    // Main Play functions with dual engine
     const playSound = (type) => {
         if (muted) return;
         initAudioContext();
@@ -348,18 +395,40 @@ const soundManager = (() => {
                 }, { capture: true, once: false });
             });
         },
-        startBootSequence: () => {
+        startLoadingSound: () => {
             if (!muted) {
                 initAudioContext();
                 if (audioCtx && audioCtx.state === 'running') {
-                    startBootDroneInternal();
+                    startLoadingSoundInternal();
                 } else {
-                    bootDronePending = true;
+                    loadingSoundPending = true;
                 }
             }
         },
-        stopBootDrone: () => stopBootDroneInternal(),
-        playTelemetryBlip: (step) => playTelemetryBlip(step),
+        updateLoadingProgress: (progressPercent, step) => {
+            if (!muted) {
+                initAudioContext();
+                if (loadingSoundPending && audioCtx && audioCtx.state === 'running') {
+                    loadingSoundPending = false;
+                    startLoadingSoundInternal();
+                }
+                updateDronePitch(progressPercent);
+                if (progressPercent >= 100) {
+                    playBootChime();
+                } else {
+                    playStepChirp(step);
+                }
+            }
+        },
+        stopLoadingSound: () => {
+            loadingSoundPending = false;
+            stopChatter();
+            stopAscendingDrone();
+        },
+        // Backward-compatible aliases
+        startBootSequence: () => soundManager.startLoadingSound(),
+        stopBootDrone: () => soundManager.stopLoadingSound(),
+        playTelemetryBlip: (step) => playStepChirp(step),
         playBootChime: () => playBootChime(),
         synthBoot: () => playBootChime(),
         playSlide: () => playSound('slide'),
@@ -378,7 +447,7 @@ const soundManager = (() => {
                 initAudioContext();
                 playBootChime();
             } else {
-                stopBootDroneInternal();
+                soundManager.stopLoadingSound();
             }
             return muted;
         },
@@ -390,7 +459,6 @@ const soundManager = (() => {
 document.addEventListener('DOMContentLoaded', () => {
     soundManager.init();
 
-    // Delegate clicks for data-sound attributes
     document.addEventListener('click', (e) => {
         const soundBtn = e.target.closest('[data-sound]');
         if (soundBtn) {
@@ -401,7 +469,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Delegate hover sounds for cyber buttons
     document.addEventListener('mouseover', (e) => {
         const btn = e.target.closest('.cyber-btn, .filter-btn, .nav-link');
         if (btn && !btn.dataset.hovered) {

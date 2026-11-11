@@ -43,15 +43,15 @@ document.addEventListener('DOMContentLoaded', () => {
         let isDismissed = false;
 
         // Engage futuristic boot audio sequence (hum + telemetry chirps)
-        if (window.soundManager && soundManager.startBootSequence) {
-            soundManager.startBootSequence();
+        if (window.soundManager && soundManager.startLoadingSound) {
+            soundManager.startLoadingSound();
         }
 
         const dismissPreloader = (skippedByUser = false) => {
             if (isDismissed) return;
             isDismissed = true;
             if (window.soundManager) {
-                soundManager.stopBootDrone();
+                soundManager.stopLoadingSound();
                 if (skippedByUser) {
                     soundManager.playSlide();
                 }
@@ -63,18 +63,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 650);
         };
 
-        // Allow immediate skip via button, click anywhere on overlay, or Escape/Enter key
+        // User click on preloader background activates/resumes sound
+        preloader.addEventListener('pointerdown', (e) => {
+            if (e.target.closest('#preloader-skip')) return;
+            if (window.soundManager) {
+                soundManager.init();
+                soundManager.startLoadingSound();
+            }
+        });
+
+        // Allow immediate skip via button or Escape key
         if (skipBtn) {
             skipBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 dismissPreloader(true);
             });
         }
-        preloader.addEventListener('click', () => {
-            dismissPreloader(true);
-        });
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+            if (e.key === 'Escape') {
                 dismissPreloader(true);
             }
         });
@@ -106,21 +112,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
 
-                // Audio cue per progression stage
+                // Audio cue per progression stage (ascending pitch + digital chatter + telemetry chirps)
                 if (window.soundManager) {
-                    if (msg.success) {
-                        soundManager.playBootChime();
-                    } else {
-                        soundManager.playTelemetryBlip(step);
-                    }
+                    soundManager.updateLoadingProgress(msg.progress, step);
                 }
 
                 step++;
             } else {
                 clearInterval(interval);
-                setTimeout(() => dismissPreloader(false), 400);
+                setTimeout(() => dismissPreloader(false), 450);
             }
-        }, 280); // ~1.1s total progression
+        }, 320); // ~1.3s total progression + 450ms boot chime
     };
 
     initCyberPreloader();
