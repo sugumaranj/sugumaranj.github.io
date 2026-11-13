@@ -79,23 +79,31 @@ body {
    ======================================================== */
 @media (max-width: 992px) {
     .about-sticky-container {
-        grid-template-columns: 1fr;
-        gap: var(--space-8);
+        grid-template-columns: 1fr !important;
+        gap: var(--space-8) !important;
+        width: 100% !important;
     }
 
     .about-sticky-col {
-        position: static;
-        max-width: 480px;
-        margin: 0 auto;
-        width: 100%;
+        position: static !important;
+        max-width: 480px !important;
+        margin: 0 auto !important;
+        width: 100% !important;
     }
 
     .about-sticky-card {
-        position: static;
+        position: static !important;
+        width: 100% !important;
+    }
+
+    .about-content-col {
+        width: 100% !important;
+        max-width: 480px !important;
+        margin: 0 auto !important;
     }
 
     .sticky-scroll-indicator {
-        display: none;
+        display: none !important;
     }
 
     .crops-to-code-visual {
@@ -422,6 +430,12 @@ body {
     }
 
     /* About Section */
+    .about-sticky-col,
+    .about-content-col {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
     .about-sticky-card {
         padding: var(--space-6) var(--space-4) !important;
         border-radius: 18px !important;

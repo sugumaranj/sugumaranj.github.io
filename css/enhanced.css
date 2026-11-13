@@ -313,28 +313,42 @@ body {
 
 .about-sticky-container {
     display: grid;
-    grid-template-columns: 360px 1fr;
-    gap: var(--space-12);
-    align-items: start; /* CRITICAL: Enables sticky child to scroll along full container height */
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
     position: relative;
 }
 
-/* Sticky Column */
+@media (min-width: 993px) {
+    .about-sticky-container {
+        grid-template-columns: 360px 1fr;
+        gap: var(--space-12);
+        align-items: start; /* CRITICAL: Enables sticky child to scroll along full container height */
+    }
+
+    .about-sticky-col {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 96px; /* Accounts for fixed navbar */
+        align-self: start;
+        height: -webkit-fit-content;
+        height: -moz-fit-content;
+        height: fit-content;
+        z-index: 10;
+    }
+
+    .about-sticky-card {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 96px;
+    }
+}
+
 .about-sticky-col {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 96px; /* Accounts for fixed navbar */
-    align-self: start;
-    height: -webkit-fit-content;
-    height: -moz-fit-content;
-    height: fit-content;
-    z-index: 10;
+    position: static;
+    width: 100%;
 }
 
 .about-sticky-card {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 96px;
     background: linear-gradient(165deg, rgba(20, 27, 45, 0.85) 0%, rgba(11, 15, 26, 0.95) 100%);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
