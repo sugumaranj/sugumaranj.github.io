@@ -25,6 +25,22 @@ body {
         grid-template-columns: 1fr;
         gap: var(--space-8);
         text-align: center;
+        justify-items: center;
+    }
+
+    .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        max-width: 650px;
+        margin: 0 auto;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .hero-actions, .social-links {
@@ -32,7 +48,7 @@ body {
     }
 
     .hero-visual {
-        margin: 2rem auto 0;
+        margin: 1.5rem auto 0;
     }
 
     .about-sticky-container {
@@ -143,6 +159,21 @@ body {
 
     .hamburger-btn {
         display: block;
+    }
+
+    .hero-section {
+        min-height: auto;
+        padding-top: 85px;
+        padding-bottom: 2.5rem;
+    }
+
+    .hero-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.5rem;
+        width: 100%;
     }
     
     /* Mobile Navigation Drawer */
@@ -277,34 +308,76 @@ body {
         height: 16px;
     }
 
-    /* Hero Typography */
+    /* Hero Typography & Layout */
+    .hero-section {
+        min-height: auto;
+        padding-top: 80px;
+        padding-bottom: 2rem;
+    }
+
+    .hero-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.25rem;
+        width: 100%;
+    }
+
+    .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .hero-title {
+        text-align: center;
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
     .hero-title .greeting {
         font-size: 0.95rem;
+        margin-bottom: 0.35rem;
+        text-align: center;
+        display: block;
     }
 
     .hero-title .name {
-        font-size: clamp(1.85rem, 8.5vw, 2.75rem);
+        font-size: clamp(2rem, 8.5vw, 2.75rem);
         word-break: break-word;
         line-height: 1.15;
+        text-align: center;
+        display: block;
+        margin-bottom: 0.45rem;
     }
 
     .hero-subtitle {
-        font-size: 0.88rem;
-        line-height: 1.4;
+        font-size: 0.92rem;
+        line-height: 1.45;
+        text-align: center;
+        max-width: 95%;
+        margin: 0 auto 0.75rem auto;
     }
 
     .hero-description {
         font-size: 0.88rem;
-        line-height: 1.5;
+        line-height: 1.55;
+        text-align: center;
+        max-width: 92%;
+        margin: 0 auto 1.5rem auto;
     }
 
-    /* Hero Actions Full Width */
+    /* Hero Actions Full Width Centered */
     .hero-actions {
         display: flex;
         flex-direction: column;
+        align-items: center;
         width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
+        max-width: 280px;
+        margin: 0 auto 1.25rem auto;
         gap: 10px;
     }
 
@@ -314,23 +387,37 @@ body {
         padding: 0.65rem 1rem;
     }
 
-    /* Hero Orbital System Scaling */
+    /* Hero Social Links Centered */
+    .social-links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    /* Hero Orbital System Scaling & Spacing */
     .hero-visual {
         width: 250px !important;
         height: 250px !important;
-        max-width: 88vw !important;
-        margin: 1.5rem auto 0 !important;
+        max-width: 85vw !important;
+        margin: 1.25rem auto 0 auto !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
     }
 
     .node-center {
-        width: 105px !important;
-        height: 105px !important;
+        width: 110px !important;
+        height: 110px !important;
     }
 
     .node-orbit {
-        width: 40px !important;
-        height: 40px !important;
-        margin: -20px 0 0 -20px !important;
+        width: 42px !important;
+        height: 42px !important;
+        margin: -21px 0 0 -21px !important;
         font-size: 0.65rem !important;
     }
 

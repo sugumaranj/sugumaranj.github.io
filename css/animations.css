@@ -81,8 +81,13 @@
     }
 
     @keyframes orbit-mobile {
-        from { transform: rotate(0deg) translateX(65px) rotate(0deg); }
-        to { transform: rotate(360deg) translateX(65px) rotate(-360deg); }
+        from { transform: rotate(0deg) translateX(84px) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(84px) rotate(-360deg); }
+    }
+
+    @keyframes orbit-compact {
+        from { transform: rotate(0deg) translateX(70px) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(70px) rotate(-360deg); }
     }
 
     .orbit-1 { animation: orbit 15s linear infinite; }
@@ -90,11 +95,18 @@
     .orbit-3 { animation: orbit 25s linear infinite; animation-delay: -10s; }
     .orbit-4 { animation: orbit 18s linear infinite; animation-delay: -15s; }
 
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
         .orbit-1 { animation: orbit-mobile 15s linear infinite; }
         .orbit-2 { animation: orbit-mobile 20s linear infinite; animation-delay: -5s; }
         .orbit-3 { animation: orbit-mobile 25s linear infinite; animation-delay: -10s; }
         .orbit-4 { animation: orbit-mobile 18s linear infinite; animation-delay: -15s; }
+    }
+
+    @media (max-width: 360px) {
+        .orbit-1 { animation: orbit-compact 15s linear infinite; }
+        .orbit-2 { animation: orbit-compact 20s linear infinite; animation-delay: -5s; }
+        .orbit-3 { animation: orbit-compact 25s linear infinite; animation-delay: -10s; }
+        .orbit-4 { animation: orbit-compact 18s linear infinite; animation-delay: -15s; }
     }
 }
 
