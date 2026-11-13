@@ -1718,18 +1718,18 @@ body.light-theme {
 
 /* Signature Section: From Crops to Code */
 [data-theme='light'] .signature-section {
-    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
 [data-theme='light'] .step {
     background: #ffffff;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    border: 1px solid #cbd5e1;
+    box-shadow: 0 4px 15px -2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
 }
 
 [data-theme='light'] .step:hover {
     border-color: #2563eb;
-    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.12);
+    box-shadow: 0 12px 25px -4px rgba(37, 99, 235, 0.16), 0 2px 6px rgba(37, 99, 235, 0.08);
 }
 
 [data-theme='light'] .step h4 {
@@ -1737,20 +1737,25 @@ body.light-theme {
 }
 
 [data-theme='light'] .step p {
-    color: #64748b;
+    color: #475569;
 }
 
 [data-theme='light'] .connector {
     background-color: #2563eb;
+    box-shadow: 0 0 6px rgba(37, 99, 235, 0.25);
 }
 
 [data-theme='light'] .connector::after {
     border-left-color: #2563eb;
+    filter: none;
 }
 
 @media (max-width: 992px) {
     [data-theme='light'] .connector::after {
         border-top-color: #2563eb;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        filter: none;
     }
 }
 
