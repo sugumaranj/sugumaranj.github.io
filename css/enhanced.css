@@ -931,13 +931,15 @@ body::before {
     border: 0;
     background: transparent;
     position: relative;
+    isolation: isolate;
+    z-index: 1;
     color: var(--cyber-accent);
     cursor: pointer;
     font-size: var(--text-xs);
     font-weight: 700;
     letter-spacing: 0.08em;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, transform 0.2s ease;
     user-select: none;
     outline: none;
 }
@@ -946,9 +948,17 @@ body::before {
     pointer-events: none;
 }
 
+.cyber-btn > span,
+.cyber-btn > kbd,
+.cyber-btn > .glitch,
+.cyber-btn > svg {
+    position: relative;
+    z-index: 1;
+}
+
 .cyber-btn .backdrop {
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     inset: 0;
     background: rgba(0, 240, 255, 0.06);
     clip-path: var(--clip);
@@ -956,6 +966,7 @@ body::before {
     -webkit-backdrop-filter: saturate(180%) blur(6px);
     border: 1px solid rgba(0, 240, 255, 0.35);
     transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    pointer-events: none;
 }
 
 .cyber-btn .corner {
@@ -1001,16 +1012,17 @@ body::before {
 }
 
 .cyber-btn:is(:hover, :focus-visible) {
-    color: #0b0f19;
+    color: #030712;
 }
 
 .cyber-btn:is(:hover, :focus-visible) .backdrop {
     background: var(--cyber-accent);
-    box-shadow: 0 0 22px rgba(0, 240, 255, 0.55);
+    border-color: var(--cyber-accent);
+    box-shadow: 0 0 22px rgba(0, 240, 255, 0.65), 0 0 8px #00f0ff;
 }
 
 .cyber-btn:is(:hover, :focus-visible) kbd {
-    background: #0b0f19;
+    background: #030712;
     color: var(--cyber-accent);
 }
 
@@ -1040,14 +1052,14 @@ body::before {
 }
 
 .cyber-btn.cyber-btn-secondary:is(:hover, :focus-visible) .backdrop {
-    background: rgba(0, 240, 255, 0.15);
+    background: rgba(0, 240, 255, 0.18);
     border-color: var(--cyber-accent);
     box-shadow: 0 0 18px rgba(0, 240, 255, 0.35);
 }
 
 .cyber-btn.cyber-btn-secondary:is(:hover, :focus-visible) kbd {
     background: var(--cyber-accent);
-    color: #0b0f19;
+    color: #030712;
 }
 
 /* Small Cyber Button */
@@ -1324,6 +1336,93 @@ body::before {
     padding: 16px 24px;
     background: rgba(11, 15, 26, 0.98);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cyber-modal-card .modal__actions .cyber-btn {
+    position: relative;
+    isolation: isolate;
+    z-index: 1;
+}
+
+.cyber-modal-card .modal__actions .cyber-btn .backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.cyber-modal-card .modal__actions .cyber-btn > span,
+.cyber-modal-card .modal__actions .cyber-btn > kbd {
+    position: relative;
+    z-index: 1;
+}
+
+/* Modal Close Button (Dark Mode) */
+.cyber-modal-card .modal__actions .modal-close-btn,
+.cyber-modal-card .modal__actions .modal-close {
+    color: #94a3b8;
+}
+
+.cyber-modal-card .modal__actions .modal-close-btn .backdrop,
+.cyber-modal-card .modal__actions .modal-close .backdrop {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cyber-modal-card .modal__actions .modal-close-btn kbd,
+.cyber-modal-card .modal__actions .modal-close kbd {
+    background: rgba(255, 255, 255, 0.15);
+    color: #cbd5e1;
+    box-shadow: none;
+}
+
+.cyber-modal-card .modal__actions .modal-close-btn:hover,
+.cyber-modal-card .modal__actions .modal-close:hover {
+    color: #ffffff;
+}
+
+.cyber-modal-card .modal__actions .modal-close-btn:hover .backdrop,
+.cyber-modal-card .modal__actions .modal-close:hover .backdrop {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.25);
+}
+
+.cyber-modal-card .modal__actions .modal-close-btn:hover kbd,
+.cyber-modal-card .modal__actions .modal-close:hover kbd {
+    background: #ffffff;
+    color: #0b0f19;
+}
+
+/* Modal Action Buttons (View Source, Live Demo) - Dark Mode */
+.cyber-modal-card .modal__actions a.cyber-btn {
+    color: #00f0ff;
+}
+
+.cyber-modal-card .modal__actions a.cyber-btn .backdrop {
+    background: rgba(0, 240, 255, 0.1);
+    border: 1px solid rgba(0, 240, 255, 0.5);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
+}
+
+.cyber-modal-card .modal__actions a.cyber-btn kbd {
+    background: #00f0ff;
+    color: #030712;
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+}
+
+.cyber-modal-card .modal__actions a.cyber-btn:hover {
+    color: #030712 !important;
+}
+
+.cyber-modal-card .modal__actions a.cyber-btn:hover .backdrop {
+    background: #00f0ff !important;
+    border-color: #00f0ff !important;
+    box-shadow: 0 0 24px rgba(0, 240, 255, 0.75), 0 0 8px #00f0ff !important;
+}
+
+.cyber-modal-card .modal__actions a.cyber-btn:hover kbd {
+    background: #030712 !important;
+    color: #00f0ff !important;
 }
 
 /* ========================================================
@@ -2336,29 +2435,59 @@ body.light-theme {
     border-top: 1px solid #e2e8f0 !important;
 }
 
-[data-theme='light'] .cyber-modal-card .modal__actions .modal-close-btn {
+[data-theme='light'] .cyber-modal-card .modal__actions .cyber-btn {
+    position: relative;
+    isolation: isolate;
+    z-index: 1;
+}
+
+[data-theme='light'] .cyber-modal-card .modal__actions .cyber-btn .backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+[data-theme='light'] .cyber-modal-card .modal__actions .cyber-btn > span,
+[data-theme='light'] .cyber-modal-card .modal__actions .cyber-btn > kbd {
+    position: relative;
+    z-index: 1;
+}
+
+[data-theme='light'] .cyber-modal-card .modal__actions .modal-close-btn,
+[data-theme='light'] .cyber-modal-card .modal__actions .modal-close {
     color: #0f172a !important;
 }
 
-[data-theme='light'] .cyber-modal-card .modal__actions .modal-close-btn .backdrop {
+[data-theme='light'] .cyber-modal-card .modal__actions .modal-close-btn .backdrop,
+[data-theme='light'] .cyber-modal-card .modal__actions .modal-close .backdrop {
     background: #ffffff !important;
     border: 1px solid #cbd5e1 !important;
     box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
 }
 
-[data-theme='light'] .cyber-modal-card .modal__actions .modal-close-btn kbd {
+[data-theme='light'] .cyber-modal-card .modal__actions .modal-close-btn kbd,
+[data-theme='light'] .cyber-modal-card .modal__actions .modal-close kbd {
     background: #f1f5f9 !important;
     color: #475569 !important;
     box-shadow: none !important;
 }
 
-[data-theme='light'] .cyber-modal-card .modal__actions .modal-close-btn:hover {
+[data-theme='light'] .cyber-modal-card .modal__actions .modal-close-btn:hover,
+[data-theme='light'] .cyber-modal-card .modal__actions .modal-close:hover {
     color: #2563eb !important;
 }
 
-[data-theme='light'] .cyber-modal-card .modal__actions .modal-close-btn:hover .backdrop {
+[data-theme='light'] .cyber-modal-card .modal__actions .modal-close-btn:hover .backdrop,
+[data-theme='light'] .cyber-modal-card .modal__actions .modal-close:hover .backdrop {
     background: #eff6ff !important;
     border-color: #2563eb !important;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15) !important;
+}
+
+[data-theme='light'] .cyber-modal-card .modal__actions .modal-close-btn:hover kbd,
+[data-theme='light'] .cyber-modal-card .modal__actions .modal-close:hover kbd {
+    background: #2563eb !important;
+    color: #ffffff !important;
 }
 
 [data-theme='light'] .cyber-modal-card .modal__actions a.cyber-btn {
@@ -2377,9 +2506,19 @@ body.light-theme {
     box-shadow: none !important;
 }
 
+[data-theme='light'] .cyber-modal-card .modal__actions a.cyber-btn:hover {
+    color: #ffffff !important;
+}
+
 [data-theme='light'] .cyber-modal-card .modal__actions a.cyber-btn:hover .backdrop {
     background: #1d4ed8 !important;
+    border-color: #1e40af !important;
     box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
+}
+
+[data-theme='light'] .cyber-modal-card .modal__actions a.cyber-btn:hover kbd {
+    background: #ffffff !important;
+    color: #1d4ed8 !important;
 }
 
 [data-theme='light'] .mobile-menu-overlay {
